@@ -1,0 +1,26 @@
+#include    <stdio.h>
+
+int main()
+{
+    FILE        *f1, *f2;
+
+    f1 = fopen("input.txt", "r");
+    f2 = fopen("output.txt", "w");
+
+    char c = getc(f1);
+    char lastchar;
+    while (c != EOF)
+    {
+        putc(c, f2);
+        lastchar = c;
+        c = getc(f1);
+        if (lastchar == ' ' && c == ' ')
+        {
+            while (c == ' ')
+                getc(f1);
+        }
+    }
+    fclose(f1);
+    fclose(f2);
+    return 0;
+}

@@ -1,0 +1,19 @@
+#include <stdio.h>
+
+INT main()
+{
+    INT a;
+    scanf("%d", &a);
+    SWITCH (a)
+    {
+    CASE 1:
+        printf("yoooo");
+        BREAK;
+    CASE 2:
+        printf("nooooo");
+        BREAK;
+    DEFAULT:
+        printf("whatuppp");
+    }
+    RETURN 0;
+}
