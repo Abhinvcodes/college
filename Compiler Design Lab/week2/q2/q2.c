@@ -8,8 +8,18 @@ int main()
     f2 = fopen("output.txt", "w");
 
     char c = getc(f1);
+    char lastchar = c;
     while (c != EOF)
     {
+    	if(lastchar == '/' && c == '/')
+    	{
+    		putc(lastchar,f2);
+		while(c != '\n'){
+			c = getc(f1);
+			putc(c,f2);
+		}
+		continue;
+    	}
         if (c == '#')
         {
             while (c != '\n')
@@ -21,6 +31,7 @@ int main()
             }
         }
         putc(c, f2);
+        lastchar = c;
         c = getc(f1);
     }
     fclose(f1);
