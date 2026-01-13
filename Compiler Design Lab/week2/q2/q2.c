@@ -20,7 +20,7 @@ int main()
         		lastchar = c;
         		c = getc(f1);
 
-        		if (c == EOF) break;   // safety check
+        		if (c == EOF) break;   
         		putc(c, f2);
 
     		} while (!(lastchar == '*' && c == '/'));
