@@ -1,0 +1,16 @@
+.video-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-direction: row;
+}
+
+figure {
+  width: 300px;
+  text-align: center;
+}
+
+video {
+    width: 320px;
+    height: height;
+}
