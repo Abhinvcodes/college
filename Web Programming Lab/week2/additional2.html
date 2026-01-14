@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery Bouncing Ball</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        #stage {
+            width: 100%;
+            height: 400px;
+            background: #f0f0f0;
+            position: relative;
+            border-bottom: 5px solid #333;
+            overflow: hidden;
+        }
+        #ball {
+            width: 50px;
+            height: 50px;
+            background: #ff4757;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="stage">
+    <div id="ball"></div>
+</div>
+
+<button id="startBtn" style="margin-top: 20px; padding: 10px 20px;">Start Bouncing</button>
+
+<script>
+    $(document).ready(function() {
+    function bounce() {
+        // Step 1: Move Down (to the floor)
+        $("#ball").animate({
+            top: "350px" // Stage height (400) minus Ball height (50)
+        }, 500, "swing", function() {
+            
+            // Step 2: Move Up (back to top)
+            $("#ball").animate({
+                top: "0px"
+            }, 500, "swing", function() {
+                
+                // Step 3: Repeat the function
+                bounce();
+            });
+        });
+    }
+
+    $("#startBtn").click(function() {
+        bounce();
+        $(this).attr("disabled", true).text("Bouncing...");
+    });
+});
+</script>
+
+</body>
+</html>

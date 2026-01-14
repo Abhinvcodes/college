@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bill Generator</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; padding-top: 50px; background-color: #f4f4f9; }
+        .bill-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; }
+        h2 { text-align: center; color: #333; margin-top: 0; }
+        .section { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: #555; }
+        select, input[type="number"] { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+        .checkbox-group { display: flex; gap: 15px; align-items: center; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: background 0.3s; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+
+<div class="bill-card">
+    <h2>Generate Bill</h2>
+
+    <div class="section">
+        <label>Select Brand:</label>
+        <select id="brand">
+            <option value="50000">HP (₹50,000)</option>
+            <option value="15000">Nokia (₹15,000)</option>
+            <option value="25000">Samsung (₹25,000)</option>
+            <option value="12000">Motorola (₹12,000)</option>
+            <option value="80000">Apple (₹80,000)</option>
+        </select>
+    </div>
+
+    <div class="section">
+        <label>Accessories / Category:</label>
+        <div class="checkbox-group">
+            <span><input type="checkbox" class="cat" value="500"> Mobile</span>
+            <span><input type="checkbox" class="cat" value="2000"> Laptop</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <label>Quantity:</label>
+        <input type="number" id="qty" placeholder="Enter quantity" min="1" value="1">
+    </div>
+
+    <button id="btnBill">Produce Bill</button>
+</div>
+
+<script>
+$(document).ready(function() {
+    $("#btnBill").click(function() {
+        // 1. Get Brand Price
+        let brandPrice = parseInt($("#brand").val());
+
+        // 2. Add Checkbox values
+        let extraCharge = 0;
+        $(".cat:checked").each(function() {
+            extraCharge += parseInt($(this).val());
+        });
+
+        // 3. Get Quantity
+        let quantity = parseInt($("#qty").val());
+
+        // Validation check
+        if (!quantity || quantity <= 0) {
+            alert("Please enter a valid quantity.");
+            return;
+        }
+
+        // 4. Calculation
+        let total = (brandPrice + extraCharge) * quantity;
+
+        // 5. Output via Alert
+        alert("--- INVOICE ---\n" +
+              "Base Price: " + brandPrice + "\n" +
+              "Extra Charges: " + extraCharge + "\n" +
+              "Quantity: " + quantity + "\n" +
+              "------------------------\n" +
+              "Total Amount: ₹" + total);
+    });
+});
+</script>
+
+</body>
+</html>
