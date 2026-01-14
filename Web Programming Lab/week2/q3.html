@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Card Designer</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fdfde0; padding: 20px; }
+        .container { display: flex; gap: 40px; max-width: 900px; }
+        
+        /* Form Styling */
+        .controls { width: 40%; display: flex; flex-direction: column; gap: 15px; font-size: 14px; }
+        .controls label { font-weight: bold; margin-bottom: 5px; display: block; }
+        select, input[type="number"], textarea { width: 100%; padding: 5px; }
+        .radio-group { display: flex; flex-direction: column; gap: 5px; }
+        
+        /* Card Styling */
+        #card {
+            width: 350px;
+            height: 450px;
+            background-color: yellow;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        #card-text { margin-bottom: 20px; word-wrap: break-word; width: 100%; }
+        #card-img { width: 200px; display: block; }
+        
+        button { width: fit-content; padding: 5px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="controls">
+        <div>
+            <label>Choose a background color:</label>
+            <select id="bgColor">
+                <option value="Yellow">Yellow</option>
+                <option value="Pink">Pink</option>
+                <option value="LightBlue">Light Blue</option>
+                <option value="White">White</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Choose a font:</label>
+            <select id="fontFamily">
+                <option value="Verdana">Verdana</option>
+                <option value="Arial">Arial</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Georgia">Georgia</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Specify a numeric font size:</label>
+            <input type="number" id="fontSize" value="25">
+        </div>
+
+        <div class="radio-group">
+            <label>Choose a border style:</label>
+            <label><input type="radio" name="border" value="none"> None</label>
+            <label><input type="radio" name="border" value="double" checked> Double</label>
+            <label><input type="radio" name="border" value="solid"> Solid</label>
+        </div>
+
+        <div>
+            <label><input type="checkbox" id="showPic" checked> Add the Default Picture</label>
+        </div>
+
+        <div>
+            <label>Enter the greeting text below:</label>
+            <textarea id="greetingInput" rows="4">Happy Birthday, and many more</textarea>
+        </div>
+
+        <button id="updateBtn">Update</button>
+    </div>
+
+    <div id="card">
+        <div id="card-text">Happy Birthday, and many more</div>
+        <img id="card-img" src="https://cdn-icons-png.flaticon.com/512/3132/3132693.png" alt="Cake">
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#updateBtn").click(function() {
+            // 1. Update Background Color
+            const bgColor = $("#bgColor").val();
+            $("#card").css("background-color", bgColor);
+
+            // 2. Update Font Family
+            const font = $("#fontFamily").val();
+            $("#card-text").css("font-family", font);
+
+            // 3. Update Font Size
+            const size = $("#fontSize").val();
+            $("#card-text").css("font-size", size + "px");
+
+            // 4. Update Border Style
+            const borderStyle = $("input[name='border']:checked").val();
+            if(borderStyle === "none") {
+                $("#card").css("border", "none");
+            } else if(borderStyle === "double") {
+                $("#card").css("border", "10px double black");
+            } else {
+                $("#card").css("border", "4px solid black");
+            }
+
+            // 5. Update Picture Visibility
+            if($("#showPic").is(":checked")) {
+                $("#card-img").show();
+            } else {
+                $("#card-img").hide();
+            }
+
+            // 6. Update Text Content
+            const text = $("#greetingInput").val();
+            $("#card-text").text(text);
+        });
+    });
+</script>
+
+</body>
+</html>

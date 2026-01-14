@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Toggle Animation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; overflow-x: hidden; }
+        
+        #move-container {
+            position: relative;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        table { border-collapse: collapse; width: 350px; margin-bottom: 15px; border: 2px solid #333; }
+        th, td { padding: 12px; border: 1px solid #ccc; text-align: center; }
+        
+        /* Zebra Striping */
+        tr:nth-child(even) { background-color: #e8f4fd; }
+        tr:nth-child(odd) { background-color: #ffffff; }
+        th { background-color: #34495e; color: white; }
+
+        img { width: 350px; height: auto; border: 5px solid #34495e; border-radius: 4px; }
+
+        .controls { margin-bottom: 20px; }
+        button { 
+            padding: 10px 25px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            border-radius: 5px; 
+            border: none;
+            margin-right: 10px;
+        }
+        #animateBtn { background-color: #27ae60; color: white; }
+        #resetBtn { background-color: #c0392b; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button id="animateBtn">Slide Toggle</button>
+        <button id="resetBtn">Quick Reset</button>
+    </div>
+
+    <div id="move-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>City</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Tokyo</td><td>98</td></tr>
+                <tr><td>2</td><td>Paris</td><td>95</td></tr>
+                <tr><td>3</td><td>London</td><td>92</td></tr>
+            </tbody>
+        </table>
+        <img src="https://picsum.photos/350/150" alt="Random Scenery">
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            let moved = false;
+
+            $("#animateBtn").click(function(){
+                if (!moved) {
+                    // Move 300px to the right
+                    $("#move-container").animate({ left: "300px" }, 800, "swing");
+                    moved = true;
+                } else {
+                    // Move back to original position
+                    $("#move-container").animate({ left: "0px" }, 800, "swing");
+                    moved = false;
+                }
+            });
+
+            $("#resetBtn").click(function(){
+                // Instantly snap back
+                $("#move-container").stop().css("left", "0px");
+                moved = false;
+            });
+        });
+    </script>
+
+</body>
+</html>
