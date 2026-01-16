@@ -13,24 +13,25 @@ int main(int argc,char *argv[])
 	if(rank == 0)
 	{
 		int array[size];
+		printf("enter %d elements",size);
 		for(int i= 0;i < size;i++)
-			array[i] = i;
+			scanf("%d",&array[i]);
 		
 		MPI_Buffer_attach(buffer,1023*sizeof(int));
 		
-		for(int i = 1;i < size;i++)
+		for(int i = 0;i < size;i++)
 			MPI_Bsend(&array[i],1,MPI_INT,i,0,MPI_COMM_WORLD);
 			
 	}
 	int n;
-	
+	MPI_Recv(&n,1,MPI_INT,0,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
 	
 	if(rank == 0){
-		n = 0;
+		
 		printf("Process %d: %d\n",rank,n);
 	}
 	else{
-		MPI_Recv(&n,1,MPI_INT,0,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+		
 		if(rank % 2 == 0)
 		{
 			n = n*n;
