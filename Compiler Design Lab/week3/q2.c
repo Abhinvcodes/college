@@ -49,11 +49,15 @@ int main()
 	
 	while(fgets(buffer,1023,f1))
 	{
+		printf("%s",buffer);
 		if(CommentedLine(buffer) || preProcessor(buffer))
 			continue;
 		char *tokenizedString = (char *)malloc(sizeof(char)*1024);
+		tokenizedString[0] = '\0';
 		tokenize(buffer, tokenizedString);
+		
 		strcat(tokenizedString,"\n");
+		printf("%s",tokenizedString);
 		fprintf(f2,tokenizedString);
 		
 		free(tokenizedString);
@@ -78,7 +82,6 @@ void generateIdToken(char *tokenizedString,char *buffer,int left,int right)
 	{
 		if(strcmp(keywords[i], lexeme) == 0)
 		{
-	 		// Method you are suggesting:
 			char temp[50];
 			snprintf(temp, sizeof(temp), "<%s, %d, %d>", keywords[i],ROW,left); // Check 1
 			if (strlen(tokenizedString) + strlen(temp) < 1023) {      // Check 2
