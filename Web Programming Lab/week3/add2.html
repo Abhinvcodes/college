@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazine Cover Design</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Playfair+Display:ital,wght@1,700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for Magazine aesthetics */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        /* The Main Container holding the background image */
+        .magazine-cover {
+            /* Use a striking high-quality image. 
+               Replace this URL with your desired image if needed. 
+               This is a futuristic placeholder from Unsplash. */
+            background-image: url('https://images.unsplash.com/photo-1535378620166-273708d44e4c?q=80&w=2657&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            min-height: 100vh; /* Full viewport height */
+            position: relative;
+            /* Add a subtle dark overlay to ensure text readability everywhere */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Typography Styling */
+        .masthead {
+            font-family: 'Oswald', sans-serif;
+            font-size: 5rem; /* Massive title */
+            letter-spacing: 5px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+        }
+        
+        .cover-headline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .teaser-headline {
+             font-family: 'Oswald', sans-serif;
+             text-transform: uppercase;
+             font-weight: 700;
+             letter-spacing: 1px;
+             text-shadow: 1px 1px 5px rgba(0,0,0,0.6);
+        }
+
+        .lead-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.5rem;
+             text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        
+        /* Utility to make text pop off busy backgrounds */
+        .text-shadow-pop {
+             text-shadow: 2px 2px 4px #000000;
+        }
+
+        /* Gradient overlays for specific sections to enhance readability */
+        .overlay-gradient-bottom {
+             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+             padding-top: 100px; /* Give space for the gradient to fade in */
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .masthead { font-size: 3.5rem; }
+            .cover-headline { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid magazine-cover d-flex flex-column justify-content-between p-0">
+
+    <header class="text-center pt-4 pb-2">
+        <h1 class="masthead text-white fw-bold mb-0">INNOVATE</h1>
+        <div class="text-white-50 d-flex justify-content-center gap-3 fw-light text-uppercase small ls-2">
+            <span>Issue 42</span> | <span>Future Tech Edition</span> | <span>$12.99 US</span>
+        </div>
+    </header>
+
+    <div class="row flex-grow-1 align-items-center m-0 px-4">
+        
+        <div class="col-md-3 d-none d-md-block text-white text-start">
+            <div class="mb-5">
+                <span class="badge bg-warning text-dark mb-2 rounded-0">MUST READ</span>
+                <h4 class="teaser-headline text-white">The Neural Link Dilemma</h4>
+                <p class="small opacity-75">Are we moving too fast?</p>
+            </div>
+            
+            <div class="mb-5">
+                <h4 class="teaser-headline text-info">Quantum Leap</h4>
+                <p class="small opacity-75">Google's new 1M Qubit chip explained.</p>
+                 <a href="#" class="link-light text-decoration-none small text-uppercase fw-bold border-bottom border-info">Read More &rarr;</a>
+            </div>
+        </div>
+
+        <div class="col-md-6"></div>
+
+        <div class="col-md-3 d-none d-md-block text-white text-end">
+             <div class="mb-5">
+                <h5 class="text-uppercase fw-bold text-danger ls-1 mb-1">Profile</h5>
+                <h4 class="teaser-headline">Elon's Mars City Plans</h4>
+            </div>
+             <div class="mb-5">
+                 <div class="border-end border-3 border-success pe-3">
+                    <h5 class="text-uppercase text-success fw-bold mb-0">Sustainability</h5>
+                    <h4 class="teaser-headline mb-0">Vertical Farming</h4>
+                    <p class="small opacity-75">Feeding 10 Billion</p>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="overlay-gradient-bottom px-4 px-md-5 pb-5 text-white">
+        <div class="row">
+            <div class="col-lg-8 text-start">
+                <h2 class="cover-headline fw-bold mb-2">THE CYBORG <span class="text-warning">REVOLUTION</span></h2>
+                
+                <p class="lead-text text-white mb-4 w-75">
+                    Merging man and machine is no longer science fiction. It's happening now.
+                </p>
+                
+                <div class="d-flex align-items-center">
+                    <span class="badge bg-danger fs-6 rounded-pill me-3 px-3 py-2">EXCLUSIVE REPORT</span>
+                    <span class="text-uppercase small ls-2 fw-bold opacity-75">Page 45</span>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 d-none d-lg-flex align-items-end justify-content-end">
+                 <div class="text-end opacity-50">
+                     <i class="bi bi-upc-scan" style="font-size: 4rem;"></i>
+                     <p class="small mb-0 ls-2">ISSN 1002-495X</p>
+                 </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</body>
+</html>

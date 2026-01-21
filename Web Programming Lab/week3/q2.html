@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee CRUD System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .main-card { border: none; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .table-container { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .btn-action { padding: 5px 10px; font-size: 0.85rem; }
+        .status-badge { font-size: 0.75rem; padding: 5px 10px; border-radius: 20px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark mb-4">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1"><i class="fas fa-users-cog me-2"></i> Employee Management System</span>
+    </div>
+</nav>
+
+<div class="container-fluid px-4">
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <div class="card main-card">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 text-primary" id="formTitle">Add New Employee</h5>
+                </div>
+                <div class="card-body">
+                    <form id="employeeForm">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" id="fullName" class="form-control" placeholder="Enter name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Designation</label>
+                            <select id="designation" class="form-select" required>
+                                <option value="" selected disabled>Select Role</option>
+                                <option>Software Engineer</option>
+                                <option>Project Manager</option>
+                                <option>UI/UX Designer</option>
+                                <option>HR Specialist</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Employee ID</label>
+                            <input type="text" id="empId" class="form-control" placeholder="EMP-1001" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Department</label>
+                            <div class="pt-1">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="dept" id="it" value="IT" checked>
+                                    <label class="form-check-label" for="it">IT</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="dept" id="sales" value="Sales">
+                                    <label class="form-check-label" for="sales">Sales</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Skills</label>
+                            <div class="row g-2">
+                                <div class="col-6"><input type="checkbox" class="form-check-input skill-check" value="Java"> Java</div>
+                                <div class="col-6"><input type="checkbox" class="form-check-input skill-check" value="Python"> Python</div>
+                                <div class="col-6"><input type="checkbox" class="form-check-input skill-check" value="SQL"> SQL</div>
+                                <div class="col-6"><input type="checkbox" class="form-check-input skill-check" value="React"> React</div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary" id="saveBtn"><i class="fas fa-save me-2"></i> Save Employee</button>
+                            <button type="reset" class="btn btn-outline-secondary" id="cancelBtn">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="table-container">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h5 class="mb-0">Employee Records</h5>
+                    <div class="input-group w-50">
+                        <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-muted"></i></span>
+                        <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Search employees...">
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Designation</th>
+                                <th>Dept</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center py-4">
+                <i class="fas fa-exclamation-circle text-danger fa-3x mb-3"></i>
+                <h5>Are you sure?</h5>
+                <p class="text-muted">You won't be able to revert this employee record!</p>
+                <div class="d-flex justify-content-center gap-2 mt-4">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="confirmDelete" class="btn btn-danger">Yes, Delete it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Initial dummy data
+    let employees = [
+        { id: 'EMP-101', name: 'Alice Johnson', role: 'Software Engineer', dept: 'IT', skills: ['Java', 'React'] },
+        { id: 'EMP-102', name: 'Robert Smith', role: 'Project Manager', dept: 'Sales', skills: ['SQL'] }
+    ];
+    
+    let editMode = false;
+    let editId = null;
+    let idToDelete = null;
+
+    // 1. Function to display data
+    function renderTable(data = employees) {
+        const tbody = $('#employeeTableBody');
+        tbody.empty();
+
+        data.forEach(emp => {
+            const row = `
+                <tr data-id="${emp.id}">
+                    <td class="fw-bold">${emp.id}</td>
+                    <td>${emp.name}</td>
+                    <td>${emp.role}</td>
+                    <td><span class="badge bg-info-subtle text-info status-badge">${emp.dept}</span></td>
+                    <td class="text-center">
+                        <button class="btn btn-light btn-action text-primary me-1 edit-btn"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-light btn-action text-danger delete-btn"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>`;
+            tbody.append(row);
+        });
+    }
+
+    // 2. Save / Update Employee
+    $('#employeeForm').on('submit', function(e) {
+        e.preventDefault();
+
+        const selectedSkills = [];
+        $('.skill-check:checked').each(function() {
+            selectedSkills.push($(this).val());
+        });
+
+        const empData = {
+            id: $('#empId').val(),
+            name: $('#fullName').val(),
+            role: $('#designation').val(),
+            dept: $('input[name="dept"]:checked').val(),
+            skills: selectedSkills
+        };
+
+        if (editMode) {
+            const index = employees.findIndex(e => e.id === editId);
+            employees[index] = empData;
+            editMode = false;
+            $('#formTitle').text('Add New Employee');
+            $('#empId').prop('readonly', false);
+        } else {
+            employees.push(empData);
+        }
+
+        this.reset();
+        renderTable();
+    });
+
+    // 3. Edit Record
+    $(document).on('click', '.edit-btn', function() {
+        const id = $(this).closest('tr').data('id');
+        const emp = employees.find(e => e.id === id);
+
+        if (emp) {
+            editMode = true;
+            editId = id;
+            $('#formTitle').text('Edit Employee: ' + id);
+            $('#empId').val(emp.id).prop('readonly', true);
+            $('#fullName').val(emp.name);
+            $('#designation').val(emp.role);
+            $(`input[name="dept"][value="${emp.dept}"]`).prop('checked', true);
+            
+            $('.skill-check').prop('checked', false);
+            emp.skills.forEach(skill => {
+                $(`.skill-check[value="${skill}"]`).prop('checked', true);
+            });
+        }
+    });
+
+    // 4. Delete Record
+    $(document).on('click', '.delete-btn', function() {
+        idToDelete = $(this).closest('tr').data('id');
+        $('#deleteModal').modal('show');
+    });
+
+    $('#confirmDelete').on('click', function() {
+        employees = employees.filter(e => e.id !== idToDelete);
+        renderTable();
+        $('#deleteModal').modal('hide');
+    });
+
+    // 5. Search Record
+    $('#searchInput').on('keyup', function() {
+        const value = $(this).val().toLowerCase();
+        const filtered = employees.filter(emp => 
+            emp.name.toLowerCase().includes(value) || emp.id.toLowerCase().includes(value)
+        );
+        renderTable(filtered);
+    });
+
+    // 6. Reset Form
+    $('#cancelBtn').on('click', function() {
+        editMode = false;
+        $('#formTitle').text('Add New Employee');
+        $('#empId').prop('readonly', false);
+    });
+
+    // Load table on start
+    renderTable();
+});
+</script>
+
+</body>
+</html>

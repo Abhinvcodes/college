@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Ticket Booking</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #eef2f7; /* Soft gray background to make cards pop */
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .main-container {
+            max-width: 900px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        .booking-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        .card-header-custom {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .section-title {
+            color: #0a58ca;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .section-title i {
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        .form-floating > label {
+            color: #6c757d;
+        }
+        .btn-book {
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container main-container">
+    <div class="card booking-card">
+        <div class="card-header-custom">
+            <h2><i class="bi bi-train-front-fill me-3"></i>RapidRail Booking</h2>
+            <p class="mb-0 opacity-75">Find your next destination</p>
+        </div>
+
+        <div class="card-body p-4 p-md-5">
+            <form>
+                <h5 class="section-title"><i class="bi bi-map-fill"></i>Trip Details</h5>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light"><i class="bi bi-geo-alt-fill text-primary"></i></span>
+                            <div class="form-floating flex-grow-1">
+                                <input type="text" class="form-control" id="floatingFrom" placeholder="From Station">
+                                <label for="floatingFrom">From Station</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group input-group-lg">
+                            <span class="input-group-text bg-light"><i class="bi bi-pin-map-fill text-danger"></i></span>
+                            <div class="form-floating flex-grow-1">
+                                <input type="text" class="form-control" id="floatingTo" placeholder="To Station">
+                                <label for="floatingTo">To Station</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <input type="date" class="form-control" id="journeyDate">
+                            <label for="journeyDate">Journey Date</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-floating">
+                            <select class="form-select" id="travelClass" aria-label="Travel Class">
+                                <option selected>Select Class</option>
+                                <option value="1">AC First Class (1A)</option>
+                                <option value="2">AC 2 Tier (2A)</option>
+                                <option value="3">AC 3 Tier (3A)</option>
+                                <option value="4">Sleeper (SL)</option>
+                            </select>
+                            <label for="travelClass">Class of Travel</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                         <div class="form-floating">
+                            <select class="form-select" id="passengerCount" aria-label="Number of Passengers">
+                                <option value="1" selected>1 Passenger</option>
+                                <option value="2">2 Passengers</option>
+                                <option value="3">3 Passengers</option>
+                                <option value="4">4 Passengers</option>
+                            </select>
+                            <label for="passengerCount">Travelers</label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5 text-muted opacity-25">
+
+                <h5 class="section-title"><i class="bi bi-person-vcard-fill"></i>Primary Passenger</h5>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="fullName" placeholder="Full Name as on ID">
+                            <label for="fullName">Full Name (as on ID)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                         <div class="form-floating">
+                            <input type="number" class="form-control" id="age" placeholder="Age" min="1" max="120">
+                            <label for="age">Age</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                         <div class="form-floating">
+                            <select class="form-select" id="genderSelect">
+                                <option selected>Choose...</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Other</option>
+                            </select>
+                            <label for="genderSelect">Gender</label>
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="form-floating">
+                            <select class="form-select" id="berthSelect">
+                                <option selected>No Preference</option>
+                                <option value="LB">Lower Berth</option>
+                                <option value="MB">Middle Berth</option>
+                                <option value="UB">Upper Berth</option>
+                                <option value="SL">Side Lower</option>
+                            </select>
+                            <label for="berthSelect">Berth Preference (Optional)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-5 text-muted opacity-25">
+
+                <h5 class="section-title"><i class="bi bi-envelope-paper-fill"></i>Contact Information</h5>
+                 <p class="text-muted small mb-3">Your ticket details will be sent here.</p>
+
+                 <div class="row g-3 mb-5">
+                     <div class="col-md-6">
+                        <label for="emailInput" class="form-label visually-hidden">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light"><i class="bi bi-envelope-at"></i></span>
+                            <input type="email" class="form-control form-control-lg" id="emailInput" placeholder="Email Address">
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <label for="phoneInput" class="form-label visually-hidden">Phone Number</label>
+                        <div class="input-group">
+                             <span class="input-group-text bg-light"><i class="bi bi-phone"></i></span>
+                             <span class="input-group-text bg-light text-muted small">+91</span>
+                            <input type="tel" class="form-control form-control-lg" id="phoneInput" placeholder="Mobile Number">
+                        </div>
+                    </div>
+                 </div>
+
+                 <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-book shadow-sm" type="button">
+                        Search Trains & Book <i class="bi bi-arrow-right-circle-fill ms-2"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Optional: Set default date to today
+    document.getElementById('journeyDate').valueAsDate = new Date();
+</script>
+</body>
+</html>

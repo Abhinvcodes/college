@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Academic Schedule</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f7f6; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .timetable-container { margin-top: 50px; margin-bottom: 50px; }
+        .carousel-item { padding: 20px; min-height: 400px; }
+        .table { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .table thead { background-color: #4a69bd; color: white; }
+        .day-header { font-size: 2.5rem; font-weight: 700; color: #1e3799; margin-bottom: 10px; }
+        .lab-session { border-left: 5px solid #f8c291; background-color: #fffaf5; }
+        .lecture-session { border-left: 5px solid #4a69bd; }
+        .control-btn { background-color: #1e3799; width: 45px; height: 45px; border-radius: 50%; top: 55%; transform: translateY(-50%); }
+        .lunch-break { background-color: #f1f2f6; color: #7f8c8d; font-style: italic; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+<div class="container timetable-container">
+    <div class="row mb-4">
+        <div class="col-12 text-center">
+            <h1 class="day-header">Weekly Schedule</h1>
+            <span class="badge rounded-pill bg-dark">Spring Semester 2026</span>
+        </div>
+    </div>
+
+    <div id="timetableCarousel" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner">
+            
+            <div class="carousel-item active">
+                <h3 class="text-center mb-4 text-primary fw-bold">Monday</h3>
+                <table class="table table-hover align-middle text-center">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Subject</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="lecture-session">
+                            <td>08:00 - 09:00</td>
+                            <td class="fw-bold">PE-1</td>
+                            <td>Room 212</td>
+                            <td><span class="badge bg-primary">Lecture</span></td>
+                        </tr>
+                        <tr class="lecture-session">
+                            <td>09:00 - 10:00</td>
+                            <td class="fw-bold">Parallel Computer Architecture & Programming</td>
+                            <td>Room 209</td>
+                            <td><span class="badge bg-primary">Lecture</span></td>
+                        </tr>
+                        <tr class="lunch-break">
+                            <td>10:00 - 10:30</td>
+                            <td colspan="3">BREAK</td>
+                        </tr>
+                        <tr class="lecture-session">
+                            <td>10:30 - 11:30</td>
+                            <td class="fw-bold">Compiler Design</td>
+                            <td>Room 209</td>
+                            <td><span class="badge bg-primary">Lecture</span></td>
+                        </tr>
+                        <tr class="lecture-session">
+                            <td>11:30 - 12:30</td>
+                            <td class="fw-bold">Open Elective</td>
+                            <td>Room 410</td>
+                            <td><span class="badge bg-primary">Lecture</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="carousel-item">
+                <h3 class="text-center mb-4 text-primary fw-bold">Tuesday</h3>
+                <table class="table table-hover align-middle text-center">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Subject</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="lecture-session">
+                            <td>09:00 - 10:30</td>
+                            <td class="fw-bold">C Systems Programming</td>
+                            <td>Seminar Room</td>
+                            <td><span class="badge bg-primary">Lecture</span></td>
+                        </tr>
+                        <tr class="lecture-session">
+                            <td>11:00 - 12:30</td>
+                            <td class="fw-bold">Cryptography & Security</td>
+                            <td>Hall B-201</td>
+                            <td><span class="badge bg-info text-dark">Seminar</span></td>
+                        </tr>
+                        <tr class="lab-session">
+                            <td>02:00 - 04:00</td>
+                            <td class="fw-bold">Project Work: Python/FastAPI</td>
+                            <td>Innovation Center</td>
+                            <td><span class="badge bg-success">Development</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="carousel-item">
+                <h3 class="text-center mb-4 text-primary fw-bold">Wednesday</h3>
+                <table class="table table-hover align-middle text-center">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Subject</th>
+                            <th>Location</th>
+                            <th>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="lecture-session">
+                            <td>10:00 - 11:30</td>
+                            <td class="fw-bold">Competitive Programming</td>
+                            <td>Hall A-102</td>
+                            <td><span class="badge bg-danger">Workshop</span></td>
+                        </tr>
+                        <tr class="lecture-session">
+                            <td>12:00 - 01:00</td>
+                            <td class="fw-bold">Web Development (jQuery)</td>
+                            <td>Room 405</td>
+                            <td><span class="badge bg-secondary">Hybrid</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev control-btn" type="button" data-bs-target="#timetableCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next control-btn" type="button" data-bs-target="#timetableCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
