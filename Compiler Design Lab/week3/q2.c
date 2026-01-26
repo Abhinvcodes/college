@@ -58,7 +58,7 @@ int main()
 		
 		strcat(tokenizedString,"\n");
 		printf("%s",tokenizedString);
-		fprintf(f2,tokenizedString);
+		fprintf(f2,"%s",tokenizedString);
 		
 		free(tokenizedString);
 		ROW++;
@@ -82,8 +82,8 @@ void generateIdToken(char *tokenizedString,char *buffer,int left,int right)
 	{
 		if(strcmp(keywords[i], lexeme) == 0)
 		{
-			char temp[50];
-			snprintf(temp, sizeof(temp), "<%s, %d, %d>", keywords[i],ROW,left); // Check 1
+			char temp[128];
+			snprintf(temp, sizeof(temp), "<%s, %d, %d>", keywords[i],ROW,left+1); // Check 1
 			if (strlen(tokenizedString) + strlen(temp) < 1023) {      // Check 2
 			    strcat(tokenizedString, temp);
 			}
@@ -132,6 +132,7 @@ void tokenize(char *buffer, char *tokenizedString) {
                 lb += 2;
             } else {
                 // IMPORTANT: Handle assignment or just skip if not needed
+                generateIdToken(tokenizedString,buffer,lb,lb);
                 lb++; 
             }
         }
@@ -180,7 +181,20 @@ void tokenize(char *buffer, char *tokenizedString) {
         	generateIdToken(tokenizedString,buffer,lb,lb);
         	lb+=1;
         }
-        // 12. Catch-all for unknown characters (Prevents Infinite Loop)
+        //12. numbers
+        else if(isdigit(buffer[lb])){
+        	while(isdigit(buffer[fp])){
+        		fp++;
+        	}
+        	generateIdToken(tokenizedString,buffer,lb,fp-1);
+        	lb = fp;
+        }
+        //13. ;
+        else if(buffer[lb] == ';'){
+        	generateIdToken(tokenizedString,buffer,lb,lb);
+        	lb++;
+        }
+        // 13. Catch-all for unknown characters (Prevents Infinite Loop)
         else {
             lb++; 
         }
