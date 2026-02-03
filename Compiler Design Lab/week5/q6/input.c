@@ -1,0 +1,5 @@
+#INCLUDE <stdio.h>
+//INCLUDED STDIO
+int MAIN(){
+	RETURN 1;
+}

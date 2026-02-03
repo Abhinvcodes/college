@@ -13,9 +13,4 @@ b = 1;
 sum = a+b;
 printf("hlo");
 }
-int double()
-{
-int a,b,sum;
-sum = a+b;
-return sum;
-}
+
