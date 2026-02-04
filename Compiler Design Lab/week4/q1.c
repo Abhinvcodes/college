@@ -310,7 +310,6 @@ Token getNextToken()
     t.row = 0; // EOF Signal
     return t;
 }
-// Note: Ensure getNextToken correctly returns t.type as "id" for identifiers
 
 int main()
 {
