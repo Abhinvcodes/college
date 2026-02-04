@@ -1,0 +1,19 @@
+<h2>Teacher's Student Entry Portal</h2>
+
+<div style="display: flex; gap: 50px;">
+    <form method="post" style="flex: 1;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Details</button>
+    </form>
+
+    <div style="flex: 1;">
+        <h3>Processed Details:</h3>
+        <textarea rows="10" cols="40" readonly>{{ display_data }}</textarea>
+        
+        <br><br>
+        <label style="font-weight: bold; font-size: 1.2em;">
+            Total Percentage: {{ percentage }}%
+        </label>
+    </div>
+</div>

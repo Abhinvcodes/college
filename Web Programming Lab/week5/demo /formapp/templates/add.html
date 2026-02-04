@@ -1,0 +1,11 @@
+<h2>Simple Adder</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Calculate</button>
+</form>
+
+{% if result is not None %}
+    <h3>The total is: {{ result }}</h3>
+{% endif %}
