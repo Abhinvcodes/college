@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Captcha Verification</title>
+    <style>
+        .captcha-box { 
+            background: #eee; padding: 10px; font-family: 'Courier New'; 
+            font-size: 24px; font-weight: bold; letter-spacing: 5px;
+            display: inline-block; user-select: none;
+        }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h2>Security Verification</h2>
+    
+    <div class="captcha-box">{{ captcha_text }}</div>
+    
+    <form method="post" style="margin-top: 15px;">
+        {% csrf_token %}
+        <input type="text" name="captcha_input" placeholder="Enter Captcha" 
+               {% if is_disabled %}disabled{% endif %} required>
+        
+        <button type="submit" {% if is_disabled %}disabled{% endif %}>
+            Verify
+        </button>
+    </form>
+
+    <p class="{% if 'Success' in message %}success{% else %}error{% endif %}">
+        {{ message }}
+    </p>
+
+    {% if is_disabled %}
+        <button onclick="location.reload()">Reset Lab (Refresh Page)</button>
+    {% endif %}
+</body>
+</html>
