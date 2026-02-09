@@ -13,6 +13,7 @@ typedef struct
     char token_name[100];
     unsigned int row, col;
     char type[50];
+    int size;
 } Token;
 
 typedef struct listElement
@@ -100,13 +101,13 @@ void displaySymTable()
         listElement *curr = TABLE[i];
         while (curr != NULL)
         {
-            int size = 0;
+            int size = curr->tok->size;
             if (strcmp(curr->tok->type, "int") == 0)
-                size = 4;
+                size *= 4;
             else if (strcmp(curr->tok->type, "double") == 0)
-                size = 8;
+                size *= 8;
             else if (strcmp(curr->tok->type, "char") == 0)
-                size = 1;
+                size *= 1;
             else
                 size = 0; // Default size for non-data types
 
@@ -119,9 +120,11 @@ void displaySymTable()
 Token getNextToken()
 {
     Token t;
+    memset(&t,0,sizeof(Token));
     t.token_name[0] = '\0';
     int c;
-
+    t.size = 1;
+    
     while ((c = fgetc(f1)) != EOF)
     {
         // 1. Skip Whitespace & Update Line/Col
@@ -201,12 +204,25 @@ Token getNextToken()
         {
             int i = 0;
             t.token_name[i++] = c;
+            char temp[10]="";
+            int ti=0;
             while (isalnum(c = fgetc(f1)) || c == '_')
             {
                 if (i < 99)
                     t.token_name[i++] = c;
             }
-            ungetc(c, f1);
+            //check if its an array
+            if(c == '['){
+            	while( isdigit((c=getc(f1))) )
+            		temp[ti++] = c;
+            	temp[ti]='\0';
+            	t.size = atoi(temp);
+            	//consume ]
+            	c = getc(f1);
+            }
+            else
+            	ungetc(c, f1);
+            	
             t.token_name[i] = '\0';
             COL += i;
             if (isKeyword(t.token_name))
@@ -342,7 +358,7 @@ int main()
         }
 
         // Reset type after a semicolon (end of statement)
-        if (strcmp(t.token_name, ";") == 0)
+        if (strcmp(t.token_name, ";") == 0 || strcmp(t.token_name,"(")==0)
         {
             strcpy(currentContextType, "unknown");
         }

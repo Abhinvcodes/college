@@ -5,12 +5,13 @@ this is multiline comment
 */
 int main()
 {
-int a,b,sum;
-int ab,ba;
-double abc;
-a = 1;
-b = 1;
-sum = a+b;
-printf("hlo");
+	printf("hello world");
+	int a[4]={1,2,3,4};
+	int b[4]={5,6,7,8};
+	int c[4];
+	for(int i = 0;i < 4;i++)
+		c[i] = a[i]+b[i];
+		printf("%d",c[i]);
+	return 0;
 }
 
