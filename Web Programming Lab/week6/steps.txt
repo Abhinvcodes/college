@@ -1,0 +1,12 @@
+create a virtual env
+$python3 -m venv .venv
+activate it
+$source .venv/bin/activate
+install django
+$pip install django
+create a project
+$django-admin startproject myproject .
+create an app
+$python manage.py startapp main
+run the server
+$python manage.py runserver

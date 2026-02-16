@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazine Cover Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+<div class="main-container">
+    <div class="controls-panel">
+        <h2>Cover Editor</h2>
+        
+        <form id="magazineForm">
+            <div class="control-group">
+                <h3>Background</h3>
+                <label>Upload Image</label>
+                <input type="file" id="imgInput" accept="image/*">
+                
+                <label>Background Color</label>
+                <input type="color" id="bgColor" value="#ffffff">
+            </div>
+
+            <div class="control-group">
+                <h3>Masthead (Title)</h3>
+                <label>Title Text</label>
+                <input type="text" id="titleText" value="VOGUE">
+                
+                <label>Font Color</label>
+                <input type="color" id="titleColor" value="#ff0000">
+                
+                <label>Font Size</label>
+                <input type="range" id="titleSize" min="40" max="150" value="100">
+            </div>
+
+            <div class="control-group">
+                <h3>Headlines</h3>
+                <label>Main Headline</label>
+                <input type="text" id="headlineText" value="SUMMER VIBES">
+                
+                <label>Sub-Headline</label>
+                <input type="text" id="subHeadlineText" value="The ultimate guide to style">
+                
+                <label>Text Color</label>
+                <input type="color" id="featureColor" value="#ffffff">
+            </div>
+        </form>
+    </div>
+
+    <div class="preview-panel">
+        <div id="magazineCover" class="magazine-cover">
+            <div class="overlay" id="coverOverlay"></div>
+            
+            <h1 id="displayTitle">VOGUE</h1>
+            
+            <div class="feature-content">
+                <h2 id="displayHeadline">SUMMER VIBES</h2>
+                <p id="displaySubHeadline">The ultimate guide to style</p>
+            </div>
+
+            <div class="issue-info">
+                <p>SEPT 2026 • $10.00</p>
+                <div class="barcode">||| || |||| | ||</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Live Preview Logic
+    const imgInput = document.getElementById('imgInput');
+    const magazineCover = document.getElementById('magazineCover');
+    
+    // Title Controls
+    document.getElementById('titleText').addEventListener('input', e => document.getElementById('displayTitle').innerText = e.target.value);
+    document.getElementById('titleColor').addEventListener('input', e => document.getElementById('displayTitle').style.color = e.target.value);
+    document.getElementById('titleSize').addEventListener('input', e => document.getElementById('displayTitle').style.fontSize = e.target.value + 'px');
+
+    // Headline Controls
+    document.getElementById('headlineText').addEventListener('input', e => document.getElementById('displayHeadline').innerText = e.target.value);
+    document.getElementById('subHeadlineText').addEventListener('input', e => document.getElementById('displaySubHeadline').innerText = e.target.value);
+    document.getElementById('featureColor').addEventListener('input', e => {
+        document.getElementById('displayHeadline').style.color = e.target.value;
+        document.getElementById('displaySubHeadline').style.color = e.target.value;
+    });
+
+    // Background Controls
+    document.getElementById('bgColor').addEventListener('input', e => magazineCover.style.backgroundColor = e.target.value);
+
+    // Image Upload Logic
+    imgInput.addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                magazineCover.style.backgroundImage = `url(${e.target.result})`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+</body>
+</html>

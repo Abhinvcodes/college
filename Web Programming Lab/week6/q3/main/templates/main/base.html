@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Info</title>
+</head>
+<body>
+    <div style="padding: 10px; background-color: #f0f0f0;">
+        {% if request.resolver_match.url_name != 'home' %}
+            <a href="{% url 'home' %}">⬅ Back to Home</a>
+        {% else %}
+            <span>Welcome to the Book App</span>
+        {% endif %}
+    </div>
+    <hr>
+    
+    <div style="padding: 20px;">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

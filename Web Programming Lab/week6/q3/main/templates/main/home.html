@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+    <h1>The Great Gatsby</h1>
+    
+    <img src="{% static 'main/cover.jpg' %}" alt="Book Cover" width="200">
+    
+    <h3>Navigate:</h3>
+    <ul>
+        <li><a href="{% url 'metadata' %}">View Metadata</a></li>
+        <li><a href="{% url 'reviews' %}">Read Reviews</a></li>
+        <li><a href="{% url 'publisher' %}">Publisher Info</a></li>
+    </ul>
+{% endblock %}
