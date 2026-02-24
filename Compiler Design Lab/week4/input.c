@@ -1,17 +1,17 @@
 #include <stdio.h>
-//#include <stdio.h>
-/*
-this is multiline comment
-*/
-int main()
-{
-	printf("hello world");
-	int a[4]={1,2,3,4};
-	int b[4]={5,6,7,8};
-	int c[4];
-	for(int i = 0;i < 4;i++)
-		c[i] = a[i]+b[i];
-		printf("%d",c[i]);
-	return 0;
-}
 
+int main() {
+    int i;
+    char msg[] = "Done";  
+    int d = 1;
+    for (i = 1; i <= 10; i++) {      // loop
+        if (i % 2 == 0 && !d) {            // decision
+            printf("%d is Even\n", i);
+        } else {
+            printf("%d is Odd\n", i);
+            d -= 1;
+        }
+    }
+    printf("%s", msg);
+    return 0;
+}
