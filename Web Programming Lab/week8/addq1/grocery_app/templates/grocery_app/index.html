@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grocery Checklist</title>
+    <style>
+        /* CSS to set the border style and width for the table and cells */
+        table {
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border-style: solid;
+            border-width: 1px;
+            border-color: #a9a9a9;
+            /* Matches the gray border in the image */
+            padding: 5px 15px;
+            text-align: left;
+        }
+
+        th {
+            font-weight: normal;
+        }
+
+        .container {
+            font-family: serif;
+            /* The image uses a serif font */
+            margin: 40px;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <form method="POST">
+            {% csrf_token %}
+            <div>Select Item:</div>
+
+            {% for item in all_items %}
+            <div>
+                <label>
+                    <input type="checkbox" name="items" value="{{ item }}"> {{ item }}
+                </label>
+            </div>
+            {% endfor %}
+            <br>
+
+            {% if selected_items %}
+            <table>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
+                </tr>
+                {% for item in selected_items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+
+            <div class="button-container">
+                <button type="submit" style="padding: 5px 30px;">Add Item</button>
+            </div>
+
+        </form>
+    </div>
+</body>
+
+</html>
