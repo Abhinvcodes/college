@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Courseware Feedback Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .maroon-text { color: #800000; }
+        .form-group { margin-bottom: 20px; }
+        .label-block { display: block; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+    <h3 class="maroon-text">Courseware Feedback Form</h3>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <span class="maroon-text">Student name:</span>
+            <input type="text" name="student_name" required>
+        </div>
+
+        <div class="form-group maroon-text">
+            <span class="label-block">Sex:</span>
+            <input type="radio" id="male" name="sex" value="Male" checked>
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="sex" value="Female">
+            <label for="female">Female</label>
+        </div>
+
+        <div class="form-group">
+            <span class="maroon-text">Select course:</span>
+            <select name="course">
+                <option value="ASP-XML">ASP-XML</option>
+                <option value="DotNET">DotNET</option>
+                <option value="JavaPro">JavaPro</option>
+                <option value="Unix,C,C++">Unix,C,C++</option>
+            </select>
+        </div>
+
+        <div class="form-group maroon-text">
+            <span class="label-block">Technical Coverage:</span>
+            <input type="radio" id="excellent" name="coverage" value="Excellent" checked>
+            <label for="excellent">Excellent</label><br>
+            
+            <input type="radio" id="good" name="coverage" value="Good">
+            <label for="good">Good</label><br>
+            
+            <input type="radio" id="average" name="coverage" value="Average">
+            <label for="average">Average</label><br>
+            
+            <input type="radio" id="poor" name="coverage" value="Poor">
+            <label for="poor">Poor</label>
+        </div>
+
+        <div class="form-group">
+            <span class="maroon-text label-block">Suggestions:</span>
+            <textarea name="suggestions" rows="3" cols="40"></textarea>
+            <button type="submit" style="vertical-align: bottom;">Submit Form</button>
+        </div>
+
+    </form>
+
+    {% if message %}
+        <p class="maroon-text">{{ message }}</p>
+    {% endif %}
+
+</body>
+</html>

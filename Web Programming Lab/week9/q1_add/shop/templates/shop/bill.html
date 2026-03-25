@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Bill</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .bill-box { border: 2px dashed #333; padding: 20px; max-width: 400px; background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+
+    <div class="bill-box">
+        <h2>Invoice Summary</h2>
+        <hr>
+        <p><strong>Brand Selected:</strong> {{ brand }}</p>
+        <p><strong>Item(s):</strong> {{ items }}</p>
+        <p><strong>Quantity per Item:</strong> {{ quantity }}</p>
+        <hr>
+        <h3 style="color: green;">Total Amount: ${{ total_amount }}</h3>
+    </div>
+    
+    <br>
+    <a href="{% url 'home' %}">Create another bill</a>
+
+</body>
+</html>

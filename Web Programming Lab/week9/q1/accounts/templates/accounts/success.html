@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Success</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 40px;">
+
+    <h2 style="color: green;">Welcome {{ username }}!</h2>
+    
+    <h3>Your Registration Details:</h3>
+    <ul>
+        <li><strong>Email:</strong> {{ email }}</li>
+        <li><strong>Contact Number:</strong> {{ contact }}</li>
+    </ul>
+    
+    <a href="{% url 'register' %}">Register another user</a>
+
+</body>
+</html>
