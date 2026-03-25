@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Second Page</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; margin: 40px;">
+    <h2>Student Information</h2>
+
+    <div
+        style="background-color: #e9ecef; padding: 15px; border-radius: 5px; display: inline-block; margin-bottom: 20px;">
+        <label style="font-size: 18px;">
+            <strong>Name:</strong> {{ name }} |
+            <strong>Roll:</strong> {{ roll }} |
+            <strong>Subject:</strong> {{ subject }}
+        </label>
+    </div>
+
+    <br>
+
+    <a href="{% url 'first_page' %}">
+        <button style="padding: 8px 16px; cursor: pointer;">Go Back to First Page</button>
+    </a>
+</body>
+
+</html>
