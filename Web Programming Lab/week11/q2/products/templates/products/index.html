@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Product List</title>
+</head>
+
+<body>
+    <h1>Our Products</h1>
+    <a href="{% url 'add_product' %}">Add a New Product</a>
+
+    <hr>
+
+    <ul>
+        {% for product in products %}
+        <li>
+            <strong>{{ product.title }}</strong> - ${{ product.price }}<br>
+            <p>{{ product.description }}</p>
+        </li>
+        {% empty %}
+        <li>No products available yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
