@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Human Database</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Human Records</h2>
+
+    <div class="form-group">
+        <label for="humanSelect">First Name:</label>
+        <select id="humanSelect">
+            <option value="">-- Select a Name --</option>
+            {% for human in humans %}
+            <option value="{{ human.id }}">{{ human.first_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" disabled>
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" disabled>
+    </div>
+    <div class="form-group">
+        <label for="address">Address:</label>
+        <input type="text" id="address" disabled>
+    </div>
+    <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" disabled>
+    </div>
+
+    <button id="updateBtn" disabled>Update</button>
+    <button id="deleteBtn" disabled>Delete</button>
+
+    <script>
+        const select = document.getElementById('humanSelect');
+        const lastName = document.getElementById('lastName');
+        const phone = document.getElementById('phone');
+        const address = document.getElementById('address');
+        const city = document.getElementById('city');
+        const updateBtn = document.getElementById('updateBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        // Function to enable/disable fields based on selection
+        function toggleFields(enabled) {
+            lastName.disabled = !enabled;
+            phone.disabled = !enabled;
+            address.disabled = !enabled;
+            city.disabled = !enabled;
+            updateBtn.disabled = !enabled;
+            deleteBtn.disabled = !enabled;
+
+            if (!enabled) {
+                lastName.value = '';
+                phone.value = '';
+                address.value = '';
+                city.value = '';
+            }
+        }
+
+        // On Dropdown Change: Fetch details
+        select.addEventListener('change', function () {
+            const id = this.value;
+            if (!id) {
+                toggleFields(false);
+                return;
+            }
+
+            fetch(`/get/${id}/`)
+                .then(response => response.json())
+                .then(data => {
+                    lastName.value = data.last_name;
+                    phone.value = data.phone;
+                    address.value = data.address;
+                    city.value = data.city;
+                    toggleFields(true);
+                });
+        });
+
+        // On Update Click
+        updateBtn.addEventListener('click', function () {
+            const id = select.value;
+            const data = {
+                last_name: lastName.value,
+                phone: phone.value,
+                address: address.value,
+                city: city.value
+            };
+
+            fetch(`/update/${id}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify(data)
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Record updated successfully!');
+                    }
+                });
+        });
+
+        // On Delete Click
+        deleteBtn.addEventListener('click', function () {
+            const id = select.value;
+            if (confirm("Are you sure you want to delete this record?")) {
+                fetch(`/delete/${id}/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken
+                    }
+                }).then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // Remove the deleted option from dropdown
+                            const option = select.querySelector(`option[value="${id}"]`);
+                            option.remove();
+                            select.value = '';
+                            toggleFields(false);
+                            alert('Record deleted successfully!');
+                        }
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>

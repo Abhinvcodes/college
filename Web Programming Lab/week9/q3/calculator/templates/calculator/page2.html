@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Page 2</title>
+    <style>
+        .box {
+            border: 1px solid black;
+            padding: 30px;
+            width: 300px;
+            margin: 20px;
+            text-align: center;
+        }
+        .footer { margin-top: 40px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h3>Welcome {{ name }}</h3>
+        <h3>Your CGPA is = {{ cgpa }}</h3>
+        
+        <div class="footer">Page 2</div>
+        <br>
+        <a href="{% url 'page1' %}" style="font-size: 12px;">&larr; Go back to calculate again</a>
+    </div>
+
+</body>
+</html>

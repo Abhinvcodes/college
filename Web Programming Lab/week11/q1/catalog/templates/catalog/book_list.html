@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Library Database</title>
+</head>
+
+<body>
+    <h2>Book List</h2>
+    <a href="{% url 'add_book' %}">+ Add New Book</a>
+    <hr>
+
+    {% if books %}
+    <ul>
+        {% for book in books %}
+        <li>
+            <strong>{{ book.title }}</strong> (Published: {{ book.publication_date }})<br>
+            Publisher: {{ book.publisher.name }}<br>
+            Authors:
+            {% for author in book.authors.all %}
+            {{ author.first_name }} {{ author.last_name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </li>
+        <br>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No books in the database yet.</p>
+    {% endif %}
+</body>
+
+</html>

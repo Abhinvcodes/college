@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Institute List</title>
+</head>
+
+<body>
+    <h2>Registered Institutes</h2>
+    <select size="10" style="width: 300px; padding: 5px; font-size: 16px;">
+        {% for institute in institutes %}
+        <option value="{{ institute.institute_id }}">{{ institute.name }}</option>
+        {% empty %}
+        <option disabled>No institutes found.</option>
+        {% endfor %}
+    </select>
+</body>
+
+</html>

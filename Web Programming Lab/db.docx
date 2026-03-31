@@ -1,0 +1,176 @@
+ 
+
+1. models.py 
+
+from django.db import models 
+
+class Student(models.Model): 
+
+    name = models.CharField(max_length=100) 
+
+    age = models.IntegerField() 
+
+    grade = models.CharField(max_length=10) 
+
+ 
+
+    def __str__(self): 
+
+        return self.name 
+
+ 
+
+ 
+
+2. Run Database Commands 
+
+python manage.py makemigrations 
+
+python manage.py migrate 
+
+ 
+
+3. forms.py 
+
+from django import forms 
+
+from .models import Student 
+
+ 
+
+class StudentForm(forms.ModelForm): 
+
+    class Meta: 
+
+        model = Student 
+
+        fields = ['name', 'age', 'grade'] 
+
+ 
+
+4. views.py 
+
+from django.shortcuts import render, redirect 
+
+from .models import Student 
+
+from .forms import StudentForm 
+
+ 
+
+def add_student(request): 
+
+    form = StudentForm() 
+
+    if request.method == 'POST': 
+
+        form = StudentForm(request.POST) 
+
+        if form.is_valid(): 
+
+            form.save() 
+
+            return redirect('show_students') 
+
+ 
+
+    return render(request, 'add_student.html', {'form': form}) 
+
+ 
+
+def show_students(request): 
+
+    students = Student.objects.all() 
+
+    return render(request, 'show_students.html', {'students': students}) 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+5. urls.py (app) 
+
+from django.urls import path 
+
+from . import views 
+
+urlpatterns = [ 
+
+    path('add/', views.add_student, name='add_student'), 
+
+    path('', views.show_students, name='show_students'), 
+
+] 
+
+urls.py (project) 
+
+from django.contrib import admin 
+from django.urls import path, include 
+ 
+urlpatterns = [ 
+path('admin/', admin.site.urls),   
+
+ path('', include('directory.urls')),    
+] 
+
+ 
+
+6. add_student.html 
+
+<h2>Add Student</h2> 
+
+<form method="POST"> 
+
+    {% csrf_token %} 
+
+    {{ form.as_p }} 
+
+    <button type="submit">Save</button> 
+
+</form> 
+
+ 
+
+ 
+
+ 
+
+7. show_students.html 
+
+<h2>Student List</h2> 
+
+<ul> 
+
+    {% for student in students %} 
+
+        <li> 
+
+            {{ student.name }} - {{ student.age }} - {{ student.grade }} 
+
+        </li> 
+
+    {% endfor %} 
+
+</ul> 
+
+<a href="/add/">Add New Student</a> 
+
+ 
+
+ 
+
+Commands: 
+
+python manage.py createsuperuser 
+
+python manage.py runserver 

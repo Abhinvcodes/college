@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Form</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .form-section { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <h2>Select Your Products</h2>
+    
+    <form action="{% url 'produce_bill' %}" method="POST">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            <strong>Brand:</strong><br>
+            <input type="radio" id="hp" name="brand" value="HP" required> <label for="hp">HP</label><br>
+            <input type="radio" id="nokia" name="brand" value="Nokia"> <label for="nokia">Nokia</label><br>
+            <input type="radio" id="samsung" name="brand" value="Samsung"> <label for="samsung">Samsung</label><br>
+            <input type="radio" id="motorola" name="brand" value="Motorola"> <label for="motorola">Motorola</label><br>
+            <input type="radio" id="apple" name="brand" value="Apple"> <label for="apple">Apple</label>
+        </div>
+
+        <div class="form-section">
+            <strong>Products:</strong><br>
+            <input type="checkbox" id="mobile" name="items" value="Mobile"> <label for="mobile">Mobile ($500)</label><br>
+            <input type="checkbox" id="laptop" name="items" value="Laptop"> <label for="laptop">Laptop ($1000)</label>
+        </div>
+
+        <div class="form-section">
+            <label for="quantity"><strong>Quantity:</strong></label><br>
+            <input type="number" id="quantity" name="quantity" min="1" required>
+        </div>
+
+        <button type="submit">Produce Bill</button>
+    </form>
+
+</body>
+</html>

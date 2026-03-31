@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website Directory</title>
+</head>
+<body>
+    <h1>Website Directory</h1>
+
+    <hr>
+    <h2>Current Directory</h2>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <strong>{{ category.name }}</strong> 
+                (Visits: {{ category.visits }}, Likes: {{ category.likes }})
+                <ul>
+                    {% for page in category.page_set.all %}
+                        <li>
+                            <a href="{% url 'go_to_page' page.id %}" target="_blank">{{ page.title }}</a> 
+                            - Views: {{ page.views }}
+                        </li>
+                    {% empty %}
+                        <li>No pages in this category yet.</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% empty %}
+            <li>No categories exist yet.</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+    <h2>Add New Data</h2>
+    
+    <div style="display: flex; gap: 50px;">
+        <div>
+            <h3>Add a Category</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ cat_form.as_p }}
+                <button type="submit" name="submit_category">Save Category</button>
+            </form>
+        </div>
+
+        <div>
+            <h3>Add a Page</h3>
+            <form method="POST">
+                {% csrf_token %}
+                {{ page_form.as_p }}
+                <button type="submit" name="submit_page">Save Page</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
